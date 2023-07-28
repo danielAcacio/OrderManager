@@ -1,0 +1,28 @@
+spring:
+  sql:
+    init:
+      mode: always
+  datasource:
+    initializations-mode: always
+    url: ${database_url}
+    username: ${database_login}
+    password: ${database_password}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${email_user_name}
+    password: ${email_user_password}
+    properties:
+      mail:
+        debug: true
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
