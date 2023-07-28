@@ -13,7 +13,7 @@ spring:
     hibernate:
       ddl-auto: none
   mail:
-    host: smtp.gmail.com
+    host: ${email_server}
     port: 587
     username: ${email_user_name}
     password: ${email_user_password}
