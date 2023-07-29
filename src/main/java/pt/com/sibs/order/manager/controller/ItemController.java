@@ -1,5 +1,8 @@
 package pt.com.sibs.order.manager.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,11 +21,22 @@ public class ItemController {
 
     private ItemService service;
 
+    @Operation(description = "Create a new Item")
+    @ApiResponses({
+            @ApiResponse( responseCode = "200", description = "Item created."),
+            @ApiResponse( responseCode = "500", description = "Internal Error.")
+    })
     @PostMapping("/item")
     public ResponseEntity<ItemDTO> createItem(@Valid @RequestBody ItemDTO dto){
         return ResponseEntity.ok(this.service.create(dto));
     }
 
+    @Operation(description = "Update a Item")
+    @ApiResponses({
+            @ApiResponse( responseCode = "200", description = "Item updated."),
+            @ApiResponse( responseCode = "404", description = "Item not found."),
+            @ApiResponse( responseCode = "500", description = "Internal Error.")
+    })
     @PutMapping("/item/{itemId}")
     public ResponseEntity<ItemDTO> updateItem(
             @PathVariable(name = "itemId") Integer itemId,
@@ -30,6 +44,13 @@ public class ItemController {
         return ResponseEntity.ok(this.service.update(itemId,dto));
     }
 
+    @Operation(description = "Delete a Item")
+    @ApiResponses({
+            @ApiResponse( responseCode = "204", description = "Item deleted."),
+            @ApiResponse( responseCode = "404", description = "Item not found."),
+            @ApiResponse( responseCode = "409", description = "Item is used in orders or stock movement."),
+            @ApiResponse( responseCode = "500", description = "Internal Error.")
+    })
     @DeleteMapping("/item/{itemId}")
     public ResponseEntity<ItemDTO> deleteItem(
             @PathVariable(name = "itemId") Integer itemId){
@@ -38,11 +59,21 @@ public class ItemController {
     }
 
 
+    @Operation(description = "Get all Items")
+    @ApiResponses({
+            @ApiResponse( responseCode = "200", description = "Return All Items."),
+            @ApiResponse( responseCode = "500", description = "Internal Error.")
+    })
     @GetMapping("/item")
     public ResponseEntity<List<ItemDTO>> listItem(){
         return ResponseEntity.ok(this.service.getAll());
     }
 
+    @Operation(description = "Get all Items Paged")
+    @ApiResponses({
+            @ApiResponse( responseCode = "200", description = "Return All Items Paged."),
+            @ApiResponse( responseCode = "500", description = "Internal Error.")
+    })
     @GetMapping("/item/paged")
     public ResponseEntity<Page<ItemDTO>> listItemPaged(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,

@@ -19,4 +19,8 @@ public class EventPublisher {
         eventPublisher.publishEvent(new StockMovementEvent(item));
     }
 
+    public void publishErrorEvent(Throwable error){
+        eventPublisher.publishEvent(new ErrorEvent(error));
+    }
+
 }

@@ -24,6 +24,7 @@ public class UserService {
     @Transactional
     public UserDTO create(UserDTO dto){
         User user = dto.parse();
+        this.validator.validateEmail(user);
         return new UserDTO().build(this.repository.save(user));
     }
 
