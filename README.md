@@ -42,3 +42,10 @@ To run the image, you can run a command similar to the one listed below:
 **docker run -p8080:8080 --network=host <GENERATED_IMAGE_ID>**
 
 The application has been configured so that, when started, a database construction script is executed, so once you have correctly configured the database and created the environment variables, the application itself will build the tables, so you can verify DDL in the **schema.sql** file present in the **application's resources folder**.
+
+
+The application has api documentation provided by **Swagger** that can be accessed at:
+
+**http://localhost:8080/swagger-ui/index.html**
+
+To use the endpoints, just start the application and access the aforementioned address.
