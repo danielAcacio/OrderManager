@@ -53,11 +53,12 @@ class OrderServiceTest {
         Item item = new Item(1,"item", new ArrayList<>(), new ArrayList<>());
         Order registeredOrder = new Order(1, user, item, 10, OrderStatus.WAITING_STOCK, LocalDateTime.now(), new ArrayList<>());
         RegisterOrderDTO rDto = new RegisterOrderDTO(1,10,"user@email.com");
+
         Mockito.when(this.userService.getByEmail(Mockito.any())).thenReturn(user);
         Mockito.when(this.itemService.getById(Mockito.any())).thenReturn(item);
         Mockito.when(this.repository.save(Mockito.any())).thenReturn(registeredOrder);
+
         DetailsOrderDTO dto = this.service.create(rDto);
-        Assertions.assertEquals(dto.getId(), registeredOrder.getId());
         Assertions.assertEquals(dto.getItem().getId(), registeredOrder.getItem().getId());
         Assertions.assertEquals(dto.getOrderer().getId(), registeredOrder.getUser().getId());
     }

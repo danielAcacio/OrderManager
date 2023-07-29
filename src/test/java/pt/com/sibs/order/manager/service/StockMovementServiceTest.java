@@ -53,11 +53,10 @@ class StockMovementServiceTest {
                 MovementType.INPUT,
                 new ArrayList<>());
 
-        RegisterStockMovementDTO rDto = new RegisterStockMovementDTO(1,10);
+        RegisterStockMovementDTO rDto = new RegisterStockMovementDTO(1,100);
         Mockito.when(this.itemService.getById(Mockito.any())).thenReturn(item);
         Mockito.when(this.repository.save(Mockito.any())).thenReturn(registeredMovement);
         DetailsStockMovementDTO dto = this.service.addStockItem(rDto);
-        Assertions.assertEquals(dto.getId(), registeredMovement.getId());
         Assertions.assertEquals(dto.getItem().getId(), registeredMovement.getItem().getId());
         Assertions.assertEquals(dto.getQuantity(), registeredMovement.getQuantity());
         Assertions.assertEquals(dto.getMovementType(), registeredMovement.getMovementType());

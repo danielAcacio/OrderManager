@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.com.sibs.order.manager.core.email.EmailService;
+import pt.com.sibs.order.manager.core.events.EventPublisher;
 import pt.com.sibs.order.manager.model.Item;
 import pt.com.sibs.order.manager.model.Order;
 import pt.com.sibs.order.manager.model.StockItemCounter;
@@ -36,6 +37,8 @@ class StockOrderDispatcherServiceTest {
     private OrderStockMovementUsageRepository orderSctockMovementUsage;
     @Mock
     private EmailService emailService;
+    @Mock
+    private EventPublisher publisher;
 
     @InjectMocks
     private StockOrderDispatcherService orderDispatcherService;
