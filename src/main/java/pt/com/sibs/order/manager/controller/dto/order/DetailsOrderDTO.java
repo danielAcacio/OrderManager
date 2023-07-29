@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pt.com.sibs.order.manager.controller.dto.interfaces.BuildableDTO;
 import pt.com.sibs.order.manager.controller.dto.item.ItemDTO;
 import pt.com.sibs.order.manager.controller.dto.user.UserDTO;
 import pt.com.sibs.order.manager.controller.dto.interfaces.ParseableDTO;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class DetailsOrderDTO implements ParseableDTO<Order> {
+public class DetailsOrderDTO implements ParseableDTO<Order>, BuildableDTO<Order> {
 
     private Integer id;
     @NotNull

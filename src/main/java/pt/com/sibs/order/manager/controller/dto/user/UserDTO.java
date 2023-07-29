@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pt.com.sibs.order.manager.controller.dto.interfaces.BuildableDTO;
 import pt.com.sibs.order.manager.controller.dto.interfaces.ParseableDTO;
 import pt.com.sibs.order.manager.model.User;
 
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter@Setter
-public class UserDTO implements ParseableDTO<User> {
+public class UserDTO implements ParseableDTO<User>, BuildableDTO<User> {
 
     private Integer id;
     @NotBlank(message = "You should to inform an user name!")
@@ -24,9 +25,12 @@ public class UserDTO implements ParseableDTO<User> {
 
     @Override
     public User parse() {
-        return new User(this.getId(),
-                        this.getName(),
-                        this.getEmail());
+        return User
+                .builder()
+                .id(this.getId())
+                .name(this.getName())
+                .email(this.getEmail())
+                .build();
     }
 
     @Override

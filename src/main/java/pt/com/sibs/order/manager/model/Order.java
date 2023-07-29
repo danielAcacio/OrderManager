@@ -1,9 +1,6 @@
 package pt.com.sibs.order.manager.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pt.com.sibs.order.manager.model.enums.OrderStatus;
 import pt.com.sibs.order.manager.model.interfaces.StockItemHandler;
 
@@ -16,7 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-@Entity
+@Entity @Builder
 @Table(name ="stock_order")
 public class Order implements StockItemHandler {
     @Id
@@ -41,16 +38,19 @@ public class Order implements StockItemHandler {
 
 
     public Integer getRemainUnitsToFullFill(){
-        AtomicReference<Integer> alredyInserted = new AtomicReference<>(0);
-        movements.stream().forEach(movement-> alredyInserted.updateAndGet(v -> v + movement.getQuantity()));
-
-        return  this.quantity - alredyInserted.get();
-
+        return  this.quantity - this.getStockUnitsInUse();
     }
+
+    public Integer getStockUnitsInUse(){
+        AtomicReference<Integer> alreadyInserted = new AtomicReference<>(0);
+        movements.stream().forEach(movement-> alreadyInserted.updateAndGet(v -> v + movement.getQuantity()));
+        return  alreadyInserted.get();
+    }
+
 
     @Override
     public String toString() {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("YYYY/MM/dd hh:mm:ss");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("YYYY/MM/dd HH:mm:ss");
 
         StringBuilder sb = new StringBuilder("Order");
         sb.append("\nOrder Number:" +this.getId().toString());

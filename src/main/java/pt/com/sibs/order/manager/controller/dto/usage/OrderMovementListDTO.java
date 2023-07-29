@@ -13,7 +13,6 @@ import pt.com.sibs.order.manager.model.OrderStockMovementUsage;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
 public class OrderMovementListDTO implements SimpleDTO {

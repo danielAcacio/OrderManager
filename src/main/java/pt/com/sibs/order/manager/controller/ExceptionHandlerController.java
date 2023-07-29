@@ -44,7 +44,7 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(DataIntegrityException.class)
-    public ResponseEntity<Map<String, Object>> negocialExceptionsHandler(DataIntegrityException ex, WebRequest wr){
+    public ResponseEntity<Map<String, Object>> dataIntegrityExceptionsHandler(DataIntegrityException ex, WebRequest wr){
         Map<String, Object> responseData = new LinkedHashMap<>();
         responseData.put("message", ex.getMessage());
         responseData.put("timestamp", LocalDateTime.now());

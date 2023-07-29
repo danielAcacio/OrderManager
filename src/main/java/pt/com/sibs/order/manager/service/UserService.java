@@ -5,9 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pt.com.sibs.order.manager.controller.dto.user.UserDTO;
+import pt.com.sibs.order.manager.core.exceptions.DataIntegrityException;
 import pt.com.sibs.order.manager.core.exceptions.EntityNotFoundException;
 import pt.com.sibs.order.manager.model.User;
 import pt.com.sibs.order.manager.repository.UserRepository;
+import pt.com.sibs.order.manager.validators.UserValidator;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserService {
     private UserRepository repository;
+    private UserValidator validator;
 
     @Transactional
     public UserDTO create(UserDTO dto){
@@ -28,13 +31,13 @@ public class UserService {
     public UserDTO update(Integer userId, UserDTO dto){
         User user = this.getById(userId);
         user.setName(dto.getName());
-        user.setEmail(dto.getEmail());
         return new UserDTO().build(this.repository.save(user));
     }
 
     @Transactional
     public User delete(Integer userId){
         User user = this.getById(userId);
+        validator.validateDelete(user);
         this.repository.delete(user);
         return user;
     }

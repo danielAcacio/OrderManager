@@ -21,6 +21,7 @@ import javax.persistence.*;
         " select sm.stock_movement_id, sm.item_id, sm.quantity - coalesce(oi.quantity,0) as item_stock " +
         " from stock_movement sm  " +
         " left join output_items oi on oi.stock_movement_id=sm.stock_movement_id " +
+        " where sm.quantity - coalesce(oi.quantity,0)>0" +
         " group by 1,2,3 ")
 public class StockItemCounter {
 

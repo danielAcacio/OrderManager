@@ -39,7 +39,7 @@ public class StockMovement implements StockItemHandler {
 
     public Integer getItensAvaiable(){
         AtomicReference<Integer> itens = new AtomicReference<>(this.quantity);
-        usages.forEach(u-> itens.updateAndGet(v -> v - quantity));
+        usages.forEach(u-> itens.updateAndGet(v -> v - u.getQuantity()));
 
         return itens.get();
     }
@@ -47,7 +47,7 @@ public class StockMovement implements StockItemHandler {
 
     @Override
     public String toString() {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("YYYY/MM/dd hh:mm:ss");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("YYYY/MM/dd HH:mm:ss");
         StringBuilder sb = new StringBuilder("StockMovement");
         sb.append("\nStock Movement Number:" +this.getId().toString());
         sb.append("\nItem:"+this.getItem().getName());

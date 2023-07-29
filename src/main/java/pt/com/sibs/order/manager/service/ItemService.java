@@ -5,9 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pt.com.sibs.order.manager.controller.dto.item.ItemDTO;
+import pt.com.sibs.order.manager.core.exceptions.DataIntegrityException;
 import pt.com.sibs.order.manager.core.exceptions.EntityNotFoundException;
 import pt.com.sibs.order.manager.model.Item;
 import pt.com.sibs.order.manager.repository.ItemRepository;
+import pt.com.sibs.order.manager.validators.ItemValidator;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ItemService {
     private ItemRepository itemRepository;
+    private ItemValidator validator;
 
     @Transactional
     public ItemDTO create(ItemDTO dto){
@@ -34,6 +37,7 @@ public class ItemService {
     @Transactional
     public Item delete(Integer itemId){
         Item item = this.getById(itemId);
+        this.validator.validateDelete(item);
         this.itemRepository.delete(item);
         return item;
     }

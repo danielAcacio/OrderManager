@@ -19,7 +19,6 @@ public class EmailService {
 
     @Async
     public void sendEmailOrderCompleted(Order order){
-        LOGGER.info("\n\nStarting email sending to notify finishing of order:\n\n\n " +order.toString());
         StringBuilder sb = new StringBuilder("Your order was finished: \n\n");
         sb.append(order.toString());
         sb.append("\n\nFor more details reply this e-mail.");
@@ -31,9 +30,7 @@ public class EmailService {
         message.setText(sb.toString());
         javaMailSender.send(message);
 
-        ;
-        LOGGER.info(order.toString());
-        LOGGER.info("Email sent to: "+order.getUser().getEmail());
+        LOGGER.info("Email sent to: "+order.getUser().getEmail()+" to notify finishing od order: "+ order.getId());
 
     }
 }

@@ -1,6 +1,7 @@
 package pt.com.sibs.order.manager.controller.dto.stock;
 
 import lombok.*;
+import pt.com.sibs.order.manager.controller.dto.interfaces.BuildableDTO;
 import pt.com.sibs.order.manager.controller.dto.item.ItemDTO;
 import pt.com.sibs.order.manager.controller.dto.interfaces.ParseableDTO;
 import pt.com.sibs.order.manager.model.enums.MovementType;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class DetailsStockMovementDTO implements ParseableDTO<StockMovement> {
+public class DetailsStockMovementDTO implements ParseableDTO<StockMovement>, BuildableDTO<StockMovement> {
 
     private Integer id;
     @Valid

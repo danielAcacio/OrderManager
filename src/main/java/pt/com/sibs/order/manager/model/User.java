@@ -1,17 +1,15 @@
 package pt.com.sibs.order.manager.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pt.com.sibs.order.manager.model.interfaces.PersistentObject;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter @Setter @Builder
 @Entity
 @Table(name = "user_orderer")
 public class User implements PersistentObject {
@@ -23,6 +21,9 @@ public class User implements PersistentObject {
     private String name;
     @Column(name = "user_email", nullable = false, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
     @Override
     public String toString() {
